@@ -1,7 +1,7 @@
 <launch>
   <arg name="use_sim_time" default="true" description="Uzyj czasu symulacji"/>
 
-  <include file="$(find-pkg-share arex_nav)/launch/arex.launch.xml">
+  <include file="$(find-pkg-share arex_nav)/launch/zed_rviz.launch.xml">
     <arg name="use_sim_time" value="$(var use_sim_time)"/>
   </include>
 
