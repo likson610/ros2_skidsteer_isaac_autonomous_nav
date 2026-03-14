@@ -1,0 +1,32 @@
+<launch>
+  <!-- Czy uruchomic ZED wrapper? -->
+  <arg name="start_zed"   default="true"  description="Uruchom ZED wrapper"/>
+
+  <!-- Czy uruchomic RViz? -->
+  <arg name="start_rviz"  default="true"  description="Uruchom RViz z wizualizacja ZED"/>
+
+  <!-- Czy uruchomic Nav2? (na przyszlosc) -->
+  <arg name="start_nav2"  default="true" description="Uruchom Nav2 (wymaga mapy)"/>
+
+  <!-- Model kamery -->
+  <arg name="camera_model" default="zedx"  description="Model kamery ZED (zedx, zed2, zed2i, zedm)"/>
+
+  <!-- Nazwa kamery -->
+  <arg name="camera_name"  default="zed"   description="Nazwa kamery (namespace)"/>
+
+  <!-- Tryb symulacji -->
+  <arg name="sim_mode"     default="true"  description="Tryb symulacji Isaac Sim"/>
+
+  <!-- Czas symulacji -->
+  <arg name="use_sim_time" default="true"  description="Uzyj czasu symulacji"/>
+
+  <group if="$(var start_nav2)">
+    <include file="$(find-pkg-share nav2_bringup)/launch/bringup_launch.py">
+      <arg name="map"          value="$(find-pkg-share arex_nav)/maps/mapka.yaml"/>
+      <arg name="params_file"  value="$(find-pkg-share arex_nav)/config/nav2_config.yaml"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="autostart"    value="true"/>
+    </include>
+  </group>
+
+</launch>

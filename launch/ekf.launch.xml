@@ -1,0 +1,10 @@
+<launch>
+  <arg name="use_sim_time" default="true" description="Uzyj czasu symulacji"/>
+
+  <node pkg="robot_localization" exec="ekf_node" name="ekf_filter_node"
+        output="screen">
+    <param from="$(find-pkg-share arex_nav)/config/ekf2test.yaml"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+</launch>

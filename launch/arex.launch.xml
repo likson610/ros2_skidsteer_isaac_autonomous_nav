@@ -1,0 +1,43 @@
+<launch>
+  <!-- Czy uruchomic ZED wrapper? -->
+  <arg name="start_zed"   default="true"  description="Uruchom ZED wrapper"/>
+
+  <!-- Czy uruchomic RViz? -->
+  <arg name="start_rviz"  default="true"  description="Uruchom RViz z wizualizacja ZED"/>
+
+  <!-- Czy uruchomic Nav2? (na przyszlosc) -->
+  <arg name="start_nav2"  default="true" description="Uruchom Nav2 (wymaga mapy)"/>
+
+  <!-- Model kamery -->
+  <arg name="camera_model" default="zedx"  description="Model kamery ZED (zedx, zed2, zed2i, zedm)"/>
+
+  <!-- Nazwa kamery -->
+  <arg name="camera_name"  default="zed"   description="Nazwa kamery (namespace)"/>
+
+  <!-- Tryb symulacji -->
+  <arg name="sim_mode"     default="true"  description="Tryb symulacji Isaac Sim"/>
+
+  <!-- Czas symulacji -->
+  <arg name="use_sim_time" default="true"  description="Uzyj czasu symulacji"/>
+
+
+  <group if="$(var start_zed)">
+    <include file="$(find-pkg-share zed_wrapper)/launch/zed_camera.launch.py">
+      <arg name="camera_name"    value="$(var camera_name)"/>
+      <arg name="camera_model"   value="$(var camera_model)"/>
+      <arg name="publish_tf"     value="false"/>
+      <arg name="publish_map_tf" value="false"/>
+      <arg name="sim_mode"       value="$(var sim_mode)"/>
+      <arg name="use_sim_time"   value="$(var use_sim_time)"/>
+    </include>
+  </group>
+
+
+  <group if="$(var start_rviz)">
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen"
+          args="-d $(find-pkg-share arex_nav)/config/simrvizconfig.rviz">
+      <param name="use_sim_time" value="$(var use_sim_time)"/>
+    </node>
+  </group>
+
+</launch>
