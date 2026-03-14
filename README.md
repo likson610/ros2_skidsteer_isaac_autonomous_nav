@@ -2,6 +2,8 @@
 
 This project contains configuration and launch files for autonomous vehicle simulations within the NVIDIA Isaac Sim environment. It integrates the ZED SDK for sensing and Nav2 for autonomous navigation.
 
+![simulation view](gif.gif)
+
 ## 📋 Requirements
 
 To run this simulation correctly, ensure you have the following software installed:
